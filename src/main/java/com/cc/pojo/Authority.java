@@ -12,6 +12,10 @@ public class Authority {
     private Date expiration_date;
     private int privilege;
 
+    public Authority(String token) {
+        this.token = token;
+    }
+
     public int getId() {
         return id;
     }

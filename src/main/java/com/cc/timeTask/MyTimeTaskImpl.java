@@ -1,14 +1,7 @@
 package com.cc.timeTask;
 
-import com.cc.controller.Test;
+import com.cc.service.CrawlerService;
 import com.cc.service.FileService;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,30 +18,47 @@ import java.util.Properties;
 public class MyTimeTaskImpl implements MyTimeTask{
     @Resource
     private FileService fileService;
+    @Resource
+    private CrawlerService crawlerService;
 
 
-    @Scheduled(cron="0/9 * * * * ?")
-//    @Scheduled(cron="0 2 0 1 * ? ") //每月一号凌晨两点执行
+//    @Scheduled(cron="0/9 * * * * ?")
+    // 每月一号凌晨两点执行
+    @Scheduled(cron="0 2 0 1 * ? ")
     @Override
-    public void upload_model() {
+    public void upload_data() {
         System.out.println("start time task");
-        String filepath=null;
+        String filepath1=null;
+        String filepath2=null;
+        String filepath3=null;
         String upload_url = null;
         String info = null;
         Properties prop = new Properties();
         try {
             prop.load(MyTimeTaskImpl.class.getClassLoader().getResourceAsStream("file.properties"));
-            filepath=prop.getProperty("filepath");
+            filepath1=prop.getProperty("filepath1");
+            filepath2=prop.getProperty("filepath2");
+            filepath3=prop.getProperty("filepath3");
             upload_url=prop.getProperty("upload_url");
             info=prop.getProperty("info");
         } catch(IOException e) {
             e.printStackTrace();
         }
-        File file = new File(filepath);
-        System.out.println(filepath);
-
-        fileService.uploadFile(file,upload_url,info);
+        File file1 = new File(filepath1);
+        File file2 = new File(filepath2);
+        File file3 = new File(filepath3);
+        fileService.uploadFile(file1,upload_url,info);
+        fileService.uploadFile(file2,upload_url,info);
+        fileService.uploadFile(file3,upload_url,info);
         System.out.println("upload success");
 
+    }
+
+
+
+    // 每月2号凌晨两点执行
+    @Scheduled(cron="0 2 0 2 * ? ")
+    public void crawlerData(){
+        crawlerService.DataCrawler();
     }
 }

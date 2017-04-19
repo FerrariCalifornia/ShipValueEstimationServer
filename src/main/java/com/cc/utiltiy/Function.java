@@ -1,24 +1,33 @@
 package com.cc.utiltiy;
 
 import com.cc.algorithm.Algorithm;
+import com.cc.dao.AuthorityMapper;
+import com.cc.dao.ShipMapper;
+import com.cc.pojo.Authority;
 import com.cc.pojo.PostData;
 import com.cc.pojo.Result;
 import com.cc.pojo.Ship;
 import com.google.gson.Gson;
 import org.springframework.validation.BindingResult;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.cc.utiltiy.MybatisConn.addShip;
+
 
 /**
  * Created by cc on 2017/2/19.
  */
 public class Function {
+
+    @Resource
+    private ShipMapper shipMapper;
+    @Resource
+    private AuthorityMapper authorityMapper;
     public String responseMessage(PostData postData){
         Result result = new Result();
         String message=verify(postData.getToken());
@@ -27,7 +36,11 @@ public class Function {
             Algorithm algorithm = new Algorithm();
             List<Ship> data=algorithm.predict(postData.getData());
             //将预测结果和数据存入数据库。
-            addShip(data);
+            for (Ship ship:data
+                 ) {
+                shipMapper.insertShip(ship);
+            }
+
             result.setMessage(message);
             result.setData(data);
         }else {
@@ -45,7 +58,10 @@ public class Function {
             Algorithm algorithm = new Algorithm();
             List<Ship> data=algorithm.predict2(postData.getData());
             //将预测结果和数据存入数据库。
-            addShip(data);
+            for (Ship ship:data
+                    ) {
+                shipMapper.insertShip(ship);
+            }
             result.setMessage(message);
             result.setData(data);
         }else {
@@ -60,9 +76,9 @@ public class Function {
     //验证是否过期
     //verify the token whether expired or not
     public  String verify(String token){
-        MybatisConn mybatisConn = new MybatisConn();
+        Authority authority = new Authority(token);
         //find the expiration_date through the token which is get from the post request
-        Date expiration_date = mybatisConn.findToken(token);
+        Date expiration_date = authorityMapper.selectAuthority(authority).getExpiration_date();
         if(expiration_date==null){
             return "Please contact your administrator!";
         }
@@ -103,13 +119,6 @@ public class Function {
         }
     }
 
-    //request field control
-    public void fieldControl(List<Ship> shipList){
-        for (Ship ship :
-                shipList) {
-            ship.getHeight();
-        }
-    }
 
     public  String validate(BindingResult result){
         if(result.hasErrors()){
