@@ -23,8 +23,8 @@ public class MyTimeTaskImpl implements MyTimeTask{
 
 
 //    @Scheduled(cron="0/9 * * * * ?")
-    // 每月一号凌晨两点执行
-    @Scheduled(cron="0 2 0 1 * ? ")
+    // 每月2号凌晨两点执行
+    @Scheduled(cron="0 2 0 2 * ? ")
     @Override
     public void upload_data() {
         System.out.println("start time task");
@@ -56,8 +56,8 @@ public class MyTimeTaskImpl implements MyTimeTask{
 
 
 
-    // 每月2号凌晨两点执行
-    @Scheduled(cron="0 2 0 2 * ? ")
+    // 每月1号凌晨两点执行
+    @Scheduled(cron="0 2 0 1 * ? ")
     public void crawlerData(){
         crawlerService.DataCrawler();
     }
