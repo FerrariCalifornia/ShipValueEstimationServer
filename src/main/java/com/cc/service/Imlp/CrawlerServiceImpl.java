@@ -15,15 +15,13 @@ import java.util.Properties;
 public class CrawlerServiceImpl implements CrawlerService{
     @Override
     public void DataCrawler() {
-
-
-
         String crawler_path=null;
-
+        String crawler_path2=null;
         Properties prop = new Properties();
         try {
             prop.load(MyTimeTaskImpl.class.getClassLoader().getResourceAsStream("file.properties"));
             crawler_path=prop.getProperty("crawler_path");
+            crawler_path2=prop.getProperty("crawler_path2");
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -31,6 +29,7 @@ public class CrawlerServiceImpl implements CrawlerService{
         Process proc = null;
         try {
             proc = Runtime.getRuntime().exec("python  "+crawler_path);
+            proc = Runtime.getRuntime().exec("python  "+crawler_path2);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
