@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="ShipValueEstimationServer">
+  <artifact type="war" name="ShipValueEstimationServer">
     <output-path>$PROJECT_DIR$/target/ShipValueEstimationClient-1.9.0</output-path>
-    <root id="root">
+    <root id="archive" name="ShipValueEstimationServer.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ShipValueEstimationServer" />

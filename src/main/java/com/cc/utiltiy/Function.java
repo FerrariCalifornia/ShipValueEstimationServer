@@ -78,7 +78,13 @@ public class Function {
     public  String verify(String token){
         Authority authority = new Authority(token);
         //find the expiration_date through the token which is get from the post request
-        Date expiration_date = authorityMapper.selectAuthority(authority).getExpiration_date();
+        Date expiration_date=null;
+        try {
+
+            expiration_date = authorityMapper.selectAuthority(authority).getExpiration_date();
+        }catch (Exception e){
+            return "Please contact your administrator!";
+        }
         if(expiration_date==null){
             return "Please contact your administrator!";
         }

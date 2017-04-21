@@ -24,7 +24,8 @@ public class MyTimeTaskImpl implements MyTimeTask{
 
 //    @Scheduled(cron="0/9 * * * * ?")
     // 每月2号凌晨两点执行
-    @Scheduled(cron="0 1 0 1 * ? ")
+//    @Scheduled(cron="0 1 0 1 * ? ")
+    @Scheduled(cron="0 0/3 * * * ? ")
     @Override
     public void upload_data20() {
         System.out.println("start time task");
@@ -55,7 +56,8 @@ public class MyTimeTaskImpl implements MyTimeTask{
     }
 
 
-    @Scheduled(cron="0 1 0 1 * ? ")
+//    @Scheduled(cron="0 1 0 1 * ? ")
+    @Scheduled(cron="0 0/3 * * * ? ")
     @Override
     public void upload_data90() {
         System.out.println("start time task");
@@ -86,7 +88,8 @@ public class MyTimeTaskImpl implements MyTimeTask{
 
 
     // 每月1号凌晨两点执行
-    @Scheduled(cron="0 0 0 1 * ? ")
+//    @Scheduled(cron="0 0 0 1 * ? ")
+    @Scheduled(cron="0 0/2 * * * ? ")
     public void crawlerData(){
         crawlerService.DataCrawler();
     }
