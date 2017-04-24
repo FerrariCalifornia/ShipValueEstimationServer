@@ -8,6 +8,7 @@ import com.cc.pojo.PostData;
 import com.cc.pojo.Result;
 import com.cc.pojo.Ship;
 import com.google.gson.Gson;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import java.util.Locale;
 /**
  * Created by cc on 2017/2/19.
  */
+@Component
 public class Function {
 
     @Resource
@@ -76,12 +78,14 @@ public class Function {
     //验证是否过期
     //verify the token whether expired or not
     public  String verify(String token){
-        Authority authority = new Authority(token);
+
+        Authority authority = new Authority();
+        authority.setToken("donghui");
         //find the expiration_date through the token which is get from the post request
         Date expiration_date=null;
         try {
-
-            expiration_date = authorityMapper.selectAuthority(authority).getExpiration_date();
+            Authority authority1 =authorityMapper.selectByPrimaryKey(1);
+            expiration_date = authorityMapper.selectAuthority(authority).getExpirationDate();
         }catch (Exception e){
             return "Please contact your administrator!";
         }

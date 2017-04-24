@@ -2,25 +2,20 @@ package com.cc.pojo;
 
 import java.util.Date;
 
-
-/**
- * Created by cc on 2017/2/19.
- */
 public class Authority {
-    private int id;
+    private Integer id;
+
     private String token;
-    private Date expiration_date;
-    private int privilege;
 
-    public Authority(String token) {
-        this.token = token;
-    }
+    private Date expirationDate;
 
-    public int getId() {
+    private Integer privilege;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,29 +27,19 @@ public class Authority {
         this.token = token;
     }
 
-    public Date getExpiration_date() {
-        return expiration_date;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpiration_date(Date expiration_date) {
-        this.expiration_date = expiration_date;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
-    public int getPrivilege() {
+    public Integer getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(int privilege) {
-        this.privilege = privilege;
-    }
-
-    public Authority() {
-    }
-
-    public Authority(int id, String token, Date expriation_date, int privilege) {
-        this.id = id;
-        this.token = token;
-        this.expiration_date = expriation_date;
+    public void setPrivilege(Integer privilege) {
         this.privilege = privilege;
     }
 }

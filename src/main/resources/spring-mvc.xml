@@ -54,4 +54,6 @@
             <bean class="com.crossoverJie.intercept.Intercept"></bean>
         </mvc:interceptor>
     </mvc:interceptors>-->
+    <mvc:annotation-driven validator="ShipValidator"/> <bean id="ShipValidator" class="com.cc.validator.ShipValidator"/>
+
 </beans>
